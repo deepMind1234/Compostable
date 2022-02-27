@@ -2,7 +2,7 @@
 ## Inspiration
 - Composting is a sustainable practice
 ## What it does
-- Classifies objects as noncompostable vs compostable
+- A mobile app that classifies objects as noncompostable vs compostable
 ## How we built it
 - React Native + Expo for the mobile app
 - Pytorch for Object classification ML
