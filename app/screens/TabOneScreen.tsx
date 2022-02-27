@@ -8,23 +8,28 @@ import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  const [camerai, setCamera] = useState(false);
+  const [cameraStart, setCameraStart] = useState(false);
+
+  let camera: Camera
 
   const __startCamera = async () => {
     const status = await Camera.requestCameraPermissionsAsync();
     if (status.granted === true) {
-      setCamera(true);
+      setCameraStart(true);
     } else {
       Alert.alert('Permission Denied');
     }
   }
 
   const camCord = () => {
-    return (camerai ? (
+    return (cameraStart ? (
       <>
       <Text>Hiiiiii</Text>
       <Camera
         style={{flex: 1,width:"100%"}}
+        ref={(r) => {
+        camera = r
+        }}
       ></Camera>
       <Text>Camera</Text>
       </>
