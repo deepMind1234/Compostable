@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Alert, StyleSheet, TouchableOpacity, Button} from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, Button, Image} from 'react-native';
 import { useRef, useState } from 'react';
 import { Camera } from 'expo-camera';
 
@@ -86,24 +86,17 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           <TouchableOpacity
             onPress={__startCamera}
             style={{
-              width: 130,
+              width: 60,
               borderRadius: 4,
-              backgroundColor: '#14274e',
+              backgroundColor: '#66ff66',
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
               height: 40
             }}
           >
-            <Text
-              style={{
-                color: '#fff',
-                fontWeight: 'bold',
-                textAlign: 'center'
-              }}
-            >
-              Take picture
-            </Text>
+             <Image source={{uri: 'http://icons.iconarchive.com/icons/custom-icon-design/mono-general-3/512/camera-icon.png'}} style={{width: 50, height: 50}} />
+
           </TouchableOpacity>
         </View>
       )}
