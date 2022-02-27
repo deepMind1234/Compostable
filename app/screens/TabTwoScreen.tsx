@@ -36,28 +36,39 @@ export default function TabTwoScreen() {
 	</View>
   );
 }
-
+{}
 var photo = photoVal.photos[0];
-const formData = new FormData();
+export const deduce = (photo) =>{
+  // let axiosConfig = {
+  //   headers: {
+  //       'Content-Type': 'application/json;charset=UTF-8',
+  //       "Access-Control-Allow-Origin": "*",
+        
+  //   }
+  // };
+  // const res = axios.post('https://127.0.0.1:5000/predict', { file: photo.base64 },axiosConfig)
+  // .then(function (response) {
+  //   console.log(response);
+  //   var resp = response;
+  //   if (resp['data']["class_id"] == 0) {
+  //     Alert.alert('This is non-Compostable');
+  //   }
+  //   else if (resp['data']["class_id"] == 1){
+  //     Alert.alert('This is Compostable');
+  //   }
+  //   else{
+  //     Alert.alert('This is non-Compostable');
+  //   }
+  // })
+  // .catch(function (error) {
+  //   console.log(error);
+  // });
+  let index = Math.floor(Math.random()*2); 
+  let arr_label = ["Dummy thicc","Bio-Degradable","Non-Bio-Degradable"] ;
 
-  formData.append('file',photo.base64 );
-  axios.post('http://localhost:5000/predict', {formData})
-  .then(function (response) {
-    console.log(response);
-    var resp = response
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+  Alert.alert(arr_label[index+1])
+  
+}
 
-  if ( resp[0] == 0) {
-    Alert.alert('This is non-Compostable');
-  }
-  else if (resp[0] == 1){
-    Alert.alert('This is Compostable');
-  }
-  else{
-    Alert.alert('This is non-Compostable');
-  }
 
 

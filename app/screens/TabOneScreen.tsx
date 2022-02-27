@@ -7,6 +7,7 @@ import photoVal from '../constants/Photos'
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
+import { deduce } from './TabTwoScreen';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const [cameraStart, setCameraStart] = useState(false);
@@ -20,6 +21,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   }
   const __pushPhoto = async (photo) => { 
 	photoVal.photos.push(photo);
+  deduce(photo);
 	console.log("Photo pushed!",photo);
 	console.log("Photo array size :" + photoVal.photos.length)
 	};
