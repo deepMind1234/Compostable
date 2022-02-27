@@ -1,5 +1,5 @@
 # Compostable
-
+_Hackathon project Submitted to HackIllinois, view the project at: https://devpost.com/software/compostable_
 ## Inspiration
 - Composting is a sustainable practice
 
