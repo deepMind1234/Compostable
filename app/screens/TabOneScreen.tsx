@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Camera } from 'expo-camera';
 
 import EditScreenInfo from '../components/EditScreenInfo';
@@ -9,17 +9,21 @@ import { RootTabScreenProps } from '../types';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const [cameraStart, setCameraStart] = useState(false);
+  const [photo, setPhoto] = useState<any>(null);
 
   let camera: Camera
+  const cameraRef = useRef<Camera>(null);
 
   const __startCamera = async () => {
     const status = await Camera.requestCameraPermissionsAsync();
-    if (status.granted === true) {
-      setCameraStart(true);
-    } else {
-      Alert.alert('Permission Denied');
-    }
+    status.granted === true ? setCameraStart(true) : Alert.alert('Permission Denied');
   }
+
+  const __takePhoto = async () => {
+    cameraRef.current?.takePictureAsync({ onPictureSaved: (photo) => {
+      setPhoto(photo);
+    }})
+  };
 
   return (
     <View style={{
@@ -28,10 +32,41 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
       {cameraStart ? (
         <Camera
         style={{flex: 1,width:"100%"}}
-        // ref={(r) => {
-        //   camera = r
-        // }}
-      ></Camera>
+        ref={cameraRef}>
+        
+        <View
+          style={{
+          position: 'absolute',
+          bottom: 0,
+          flexDirection: 'row',
+          flex: 1,
+          width: '100%',
+          padding: 20,
+          justifyContent: 'space-between'
+          }}
+        >
+        <View
+          style={{
+          alignSelf: 'center',
+          flex: 1,
+          alignItems: 'center'
+          }}
+        >
+            <TouchableOpacity
+              onPress={__takePhoto}
+              style={{
+              width: 70,
+              height: 70,
+              bottom: 0,
+              borderRadius: 50,
+              backgroundColor: '#fff'
+            }}
+            >
+              <Text>Take Photo</Text>
+            </TouchableOpacity>
+          </View>
+          </View> 
+      </Camera>
       ) : (
         <View
           style={{
@@ -66,8 +101,6 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         </View>
       )}
     </View>
-
-    // <div>{camCord()}</div>
   );
 }
 
