@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Alert, StyleSheet, TouchableOpacity, Button, Image} from 'react-native';
 import { useRef, useState } from 'react';
 import { Camera } from 'expo-camera';
+import photoVal from '../constants/Photos'
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -17,11 +18,17 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     const status = await Camera.requestCameraPermissionsAsync();
     status.granted === true ? setCameraStart(true) : Alert.alert('Permission Denied');
   }
+  const __pushPhoto = async (photo) => { 
+	photoVal.photos.push(photo);
+	console.log("Photo pushed!",photo);
+	console.log("Photo array size :" + photoVal.photos.length)
+	};
 
   const __takePhoto = async () => {
     if (!cameraRef) return;
     const data = await cameraRef.current?.takePictureAsync();
-    console.log(data);
+    // console.log(data);
+	__pushPhoto(data)
     setPhoto(data);
   };
 
