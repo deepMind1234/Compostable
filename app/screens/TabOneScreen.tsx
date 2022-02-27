@@ -26,7 +26,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
   const __takePhoto = async () => {
     if (!cameraRef) return;
-    const data = await cameraRef.current?.takePictureAsync();
+    const data = await cameraRef.current?.takePictureAsync({base64 : true});
     // console.log(data);
 	__pushPhoto(data)
     setPhoto(data);
