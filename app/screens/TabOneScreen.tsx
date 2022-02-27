@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, Button} from 'react-native';
 import { useRef, useState } from 'react';
 import { Camera } from 'expo-camera';
 
@@ -11,7 +11,6 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   const [cameraStart, setCameraStart] = useState(false);
   const [photo, setPhoto] = useState<any>(null);
 
-  let camera: Camera
   const cameraRef = useRef<Camera>(null);
 
   const __startCamera = async () => {
@@ -20,9 +19,10 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   }
 
   const __takePhoto = async () => {
-    cameraRef.current?.takePictureAsync({ onPictureSaved: (photo) => {
-      setPhoto(photo);
-    }})
+    if (!cameraRef) return;
+    const data = await cameraRef.current?.takePictureAsync();
+    console.log(data);
+    setPhoto(data);
   };
 
   return (
@@ -65,7 +65,14 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
               <Text>Take Photo</Text>
             </TouchableOpacity>
           </View>
-          </View> 
+          </View>
+
+          <Button
+            onPress={() => setCameraStart(false)}
+            title="Go Back"
+            color="#841584"
+            accessibilityLabel="Learn more about this purple button"
+          />
       </Camera>
       ) : (
         <View
