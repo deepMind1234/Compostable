@@ -62,8 +62,8 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
               backgroundColor: '#fff'
             }}
             >
-              <Text>Take Photo</Text>
             </TouchableOpacity>
+              <Text>Take Photo</Text>
           </View>
           </View>
 
