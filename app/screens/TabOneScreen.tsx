@@ -11,6 +11,8 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   const [cameraStart, setCameraStart] = useState(false);
   const [photo, setPhoto] = useState<any>(null);
 
+  const [photoTaken, setPhotoTaken] = useState(false);
+
   const cameraRef = useRef<Camera>(null);
 
   const __startCamera = async () => {
@@ -18,18 +20,38 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     status.granted === true ? setCameraStart(true) : Alert.alert('Permission Denied');
   }
 
+  const __apiCall = async () => {
+    const response = await fetch('URL HERE', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        photo: photo
+      })
+    })
+    const responseJson = await response.json();
+    console.log(responseJson);
+    return responseJson;
+  };
+
   const __takePhoto = async () => {
     if (!cameraRef) return;
     const data = await cameraRef.current?.takePictureAsync();
     console.log(data);
     setPhoto(data);
+    setPhotoTaken(true);
   };
 
   return (
     <View style={{
-      flex: 1
+      flex: 1 
     }}>
-      {cameraStart ? (
+      {photoTaken ? <View>
+        <Image source={{ uri: photo.uri }} style={{ width: 300, height: 300 }} />
+        <Text>{__apiCall()}</Text>
+      </View> : cameraStart ? (
         <Camera
         style={{flex: 1,width:"100%"}}
         ref={cameraRef}>
