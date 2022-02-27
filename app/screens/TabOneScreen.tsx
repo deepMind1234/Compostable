@@ -21,57 +21,53 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     }
   }
 
-  const camCord = () => {
-    return (cameraStart ? (
-      <>
-      <Text>Hiiiiii</Text>
-      <Camera
+  return (
+    <View style={{
+      flex: 1
+    }}>
+      {cameraStart ? (
+        <Camera
         style={{flex: 1,width:"100%"}}
-        ref={(r) => {
-        camera = r
-        }}
+        // ref={(r) => {
+        //   camera = r
+        // }}
       ></Camera>
-      <Text>Camera</Text>
-      </>
-      //<Text style={styles.container}>Camera</Text>
       ) : (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: '#fff',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <TouchableOpacity
-          onPress={__startCamera}
+        <View
           style={{
-            width: 130,
-            borderRadius: 4,
-            backgroundColor: '#14274e',
-            flexDirection: 'row',
+            flex: 1,
+            backgroundColor: '#fff',
             justifyContent: 'center',
-            alignItems: 'center',
-            height: 40
+            alignItems: 'center'
           }}
         >
-          <Text
+          <TouchableOpacity
+            onPress={__startCamera}
             style={{
-              color: '#fff',
-              fontWeight: 'bold',
-              textAlign: 'center'
+              width: 130,
+              borderRadius: 4,
+              backgroundColor: '#14274e',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 40
             }}
           >
-            Take picture
-          </Text>
-        </TouchableOpacity>
-      </View>
-      )
-    )
-  }
+            <Text
+              style={{
+                color: '#fff',
+                fontWeight: 'bold',
+                textAlign: 'center'
+              }}
+            >
+              Take picture
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </View>
 
-  return (
-    <div>{camCord()}</div>
+    // <div>{camCord()}</div>
   );
 }
 
